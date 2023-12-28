@@ -18,46 +18,51 @@
 </head>
 <body>
 <?php include"./includes/header.php" ?>
-
-    <section id="prodetails" class="section-p1">
-        <div class="single-pro-img">
-            <img src="/img/products/iphone15plus 1.jpg" width="100%" id="mainIMG" alt="">
-
-            <div class="small-img-grp">
-                <div class="small-img-col">
-                    <img src="/img/products/iphone15plus 1.jpg" width="100%" class="small-img" alt="">
+<section id="prodetails" class="section-p1">
+        <?php
+        if (isset($_GET['id'])) {
+            $the_product_id = trim($_GET['id']);
+            $query = "SELECT * FROM product WHERE Id ='$the_product_id'";
+            $select_all_products_query = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($select_all_products_query)) {
+                $Id = $row['Id'];
+                $Product_Name = $row['ProductName'];
+                $Regular_Price = $row['RegularPrice'];
+                $Sale_Price = $row['SalePrice'];
+                $Image = $row['ImageLink'];
+                $Category_Name = $row['CategoryName'];
+                $Product_Link = $row['ProductLink'];
+                $Product_Content = $row['ProductContent'];
+                ?>
+                <div class="single-pro-img">
+                    <img src="<?php echo $Image; ?>" width="100%" id="mainIMG" alt="">
                 </div>
-                <div class="small-img-col">
-                    <img src="/img/products/iphone15plus 2.jpg" width="100%" class="small-img" alt="">
+                <div class="single-pro-details">
+                    <h6><?php echo $Category_Name; ?></h6>
+                    <h4><?php echo $Product_Name; ?></h4>
+                    <h2><?php echo $Sale_Price; ?></h2>
+                    <select>
+                        <option>Select color</option>
+                        <option>Black</option>
+                        <option>White</option>
+                        <option>Green</option>
+                        <option>Yellow</option>
+                        <option>Blue</option>
+                        <option>Pink</option>
+                    </select>
+                    <input type="number" value="1">
+                    <button class="normal">add to cart</button>
+                    <h4>Product details</h4>
+                    <span><?php echo $Product_Content; ?></span>
                 </div>
-                <div class="small-img-col">
-                    <img src="/img/products/iphone15plus 3.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="/img/products/iphone15plus 4.jpg" width="100%" class="small-img" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="single-pro-details">
-            <h6>iphone section</h6>
-            <h4>Iphone 15 Plus</h4>
-            <h2>$2000</h2>
-            <select>
-                <option>Select color</option>
-                <option>Black</option>
-                <option>White</option>
-                <option>Green</option>
-                <option>Yellow</option>
-                <option>Blue</option>
-                <option>Pink</option>
-            </select>
-            <input type="number" value="1">
-            <button class="normal">add to cart</button>
-            <h4>Product details</h4>
-            <span>viet qq gi do trong daay ik nha</span>
-        </div>
+            <?php
+            }
+        }
+        ?>
     </section>
+    
 
+<!-- Feature Product -->
     <section id="product1" class="section-p1">
         <h2>Featured Products</h2>
         <p>Which SmartPhone Do you Prefer?</p>
